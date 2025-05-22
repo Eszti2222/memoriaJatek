@@ -15,7 +15,7 @@ export default class Kartya{
         window.addEventListener("gameBlocked",()=>{
             this.#blokkolt=true; 
         })
-        window.addEventListener("gameBlocked",()=>{
+        window.addEventListener("gameUnBlocked",()=>{
             this.#blokkolt=false;
         })
     }
