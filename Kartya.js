@@ -21,6 +21,9 @@ export default class Kartya{
         `
         this.#divElem.insertAdjacentHTML("beforeend",html);
     }
+    getFajlNev(){
+        return this.#fajlnev;
+    }
     setAllapot(){
         this.#allapot=true;
         this.setLap()
