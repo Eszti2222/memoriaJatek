@@ -9,9 +9,10 @@ export default class Kartya{
         this.#id=id;
         this.#fajlnev=fajlnev;
         this.#divElem=szuloElem;
-        this.megjelenit();
+        this.#megjelenit();
+        this.#kattintasTrigger();
     }
-    megjelenit(){
+    #megjelenit(){
         /*egy kártya megjelenitése */
         let html=`
             <div class="kartya">
@@ -19,6 +20,26 @@ export default class Kartya{
             </div>
         `
         this.#divElem.insertAdjacentHTML("beforeend",html);
+    }
+    setAllapot(){
+        this.#allapot=true;
+        this.setLap()
+    }
+    setLap(){
+        /*módosítja a kép src attribútumát */
+        this.#imgElem.src=this.#fajlnev
+    }
+    #kattintasTrigger(){
+        /*itt hozzuk létre a saját eseményt
+        ha rákattintunk a képre
+         */
+        this.#imgElem=document.querySelector(".kartya:last-child img");
+        this.#imgElem.addEventListener("click",()=>{
+            console.log(this.#imgElem)
+            const e = new CustomEvent("fordit",{detail:this})
+            window.dispatchEvent(e)
+            this.setAllapot();
+        });
     }
     
 }
