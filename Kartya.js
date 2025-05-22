@@ -25,12 +25,17 @@ export default class Kartya{
         return this.#fajlnev;
     }
     setAllapot(){
-        this.#allapot=true;
+        this.#allapot=!this.#allapot;
         this.setLap()
     }
     setLap(){
         /*módosítja a kép src attribútumát */
-        this.#imgElem.src=this.#fajlnev
+        
+        if(this.#allapot){
+            this.#imgElem.src=this.#fajlnev 
+        }else{
+            this.#imgElem.src="kepek/hatter.jpg"
+        }
     }
     #kattintasTrigger(){
         /*itt hozzuk létre a saját eseményt
