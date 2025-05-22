@@ -20,4 +20,5 @@ export default class Kartya{
         `
         this.#divElem.insertAdjacentHTML("beforeend",html);
     }
+    
 }
