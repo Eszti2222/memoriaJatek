@@ -34,20 +34,34 @@ export default class Jatekter {
       if (this.#kivalasztottKartyaLista.length < 2) {
         this.#kivalasztottKartyaLista.push(event.detail);
         if (this.#kivalasztottKartyaLista.length === 2) {
-          let f1 = this.#kivalasztottKartyaLista[0].getFajlNev();
-          let f2 = this.#kivalasztottKartyaLista[1].getFajlNev();
-          if (f1 === f2) {
+        this.triggerBlocked();
+          let f1 = this.#kivalasztottKartyaLista[0];
+          let f2 = this.#kivalasztottKartyaLista[1];
+          if (f1.getFajlNev()=== f2.getFajlNev()) {
             console.log("talált egy párt");
+            this.triggerUnBlocked();
           } else {
             console.log("nem pár");
             setTimeout(() => {
-              this.#kivalasztottKartyaLista[0].setAllapot();
-              this.#kivalasztottKartyaLista[1].setAllapot();
+              f1.setAllapot();
+              f2.setAllapot();
+              this.triggerUnBlocked();
             }, 2000);
           }
           this.#kivalasztottKartyaLista.splice(0);
+          this.#kivalasztottKartyaLista.push(event.detail)
         }
       }
     });
+  }
+  triggerBlocked(){
+    /*létrejoz egy gameBlocked saját eseményt , amire majd fel tud iratkozni a Kártya  */
+    const e = new CustomEvent("gameBlocked")
+    window.dispatchEvent(e);
+  }
+  triggerUnBlocked(){
+    /*létrejoz egy gameBlocked saját eseményt , amire majd fel tud iratkozni a Kártya  */
+    const e = new CustomEvent("gameBlocked")
+    window.dispatchEvent(e);
   }
 }

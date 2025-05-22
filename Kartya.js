@@ -4,6 +4,7 @@ export default class Kartya{
     #divElem;
     #imgElem;
     #id;
+    #blokkolt=false; //true - akkor nem lehet kattintani
 
     constructor(id,fajlnev,szuloElem){
         this.#id=id;
@@ -11,6 +12,12 @@ export default class Kartya{
         this.#divElem=szuloElem;
         this.#megjelenit();
         this.#kattintasTrigger();
+        window.addEventListener("gameBlocked",()=>{
+            this.#blokkolt=true; 
+        })
+        window.addEventListener("gameBlocked",()=>{
+            this.#blokkolt=false;
+        })
     }
     #megjelenit(){
         /*egy kártya megjelenitése */
@@ -43,10 +50,11 @@ export default class Kartya{
          */
         this.#imgElem=document.querySelector(".kartya:last-child img");
         this.#imgElem.addEventListener("click",()=>{
-            console.log(this.#imgElem)
-            const e = new CustomEvent("fordit",{detail:this})
-            window.dispatchEvent(e)
-            this.setAllapot();
+            if(!this.#blokkolt){
+                const e = new CustomEvent("fordit",{detail:this})
+                window.dispatchEvent(e)
+                this.setAllapot();
+            }
         });
     }
     
